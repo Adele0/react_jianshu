@@ -1,19 +1,6 @@
-import { FOCUS_FALSE, FOCUS_TRUE } from './actionTypes'
+import { combineReducers } from 'redux'
+import headerReducer from '../common/header/store'
 
-const initialState = {
-  focused: false
-}
-
-export default (state = initialState, { type, payload }) => {
-  switch (type) {
-
-  case FOCUS_FALSE:
-    return { focused : true }
-
-  case FOCUS_TRUE:
-    return { focused : false }
-
-  default:
-    return state
-  }
-}
+export default combineReducers({
+  header: headerReducer
+})

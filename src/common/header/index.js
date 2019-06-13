@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group';
 import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch, Addition, Button } from './style';
-import { FOCUS_FALSE, FOCUS_TRUE  } from '../../store/actionTypes';
+import { FOCUS_FALSE, FOCUS_TRUE } from './store/actionTypes';
 
 // 无状态组件
 const Header = (props) => {
@@ -43,7 +43,7 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    focused : state.focused
+    focused : state.header.focused
   }
 }
 
