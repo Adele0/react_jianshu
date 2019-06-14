@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group';
 import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch, Addition, Button } from './style';
-import { FOCUS_FALSE, FOCUS_TRUE } from './store/actionTypes';
+import { actionCreators } from './store';
 
 // 无状态组件
 const Header = (props) => {
@@ -50,16 +50,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputBlur () {
-      const action = {
-        type: FOCUS_TRUE
-      }
-      dispatch(action)
+      dispatch(actionCreators.setFocusTrue())
     },
     handleInputFocus () {
-      const action = {
-        type: FOCUS_FALSE
-      }
-      dispatch(action)
+      dispatch(actionCreators.setFocusFalse())
     },
   }
 }
