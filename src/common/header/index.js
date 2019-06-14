@@ -22,7 +22,8 @@ class Header extends Component {
  
   // 搜索关键字的显示/隐藏
   isKeywordsShow = () => {
-    if (this.props.focused) {
+    const { focused, list } = this.props;
+    if (focused) {
       return (
         <SearchKeywords className='clearfix'>
           <SearchKeywordsTitle>
@@ -34,7 +35,7 @@ class Header extends Component {
           </SearchKeywordsTitle>
           <KeywordsList>
             {
-              this.props.list.map(item => {
+              list.map(item => {
                 return <Keywords key={item}>{item}</Keywords>
               })
             }
