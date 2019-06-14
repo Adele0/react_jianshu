@@ -43,7 +43,8 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    focused : state.header.focused
+    // 当state的使用immutable的fromJs后，不能直接使用对象调用，需使用immutable对象的get方法
+    focused : state.header.get('focused')
   }
 }
 
