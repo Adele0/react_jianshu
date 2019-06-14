@@ -1,11 +1,32 @@
 // 将所有需要派发的action都统一进行管理
-import { HEADER_FOCUS_FALSE, HEADER_FOCUS_TRUE } from './constants';
+import { fromJS } from 'immutable'
+import axios from 'axios'
+import * as constants from './constants'
 
 // 暴露的都是方法
 export const setFocusTrue = () => ({
-  type: HEADER_FOCUS_TRUE
+  type: constants.HEADER_FOCUS_TRUE
 })
 
 export const setFocusFalse = () => ({
-  type: HEADER_FOCUS_FALSE
+  type: constants.HEADER_FOCUS_FALSE
 })
+
+// 使用thunk可以使actionCreator返回函数
+// state的数据是immutable对象，获得的数据也应该转为immutable对象
+
+const initList = (data) => ({
+  type: constants.HEADER_INIT_LIST,
+  payload: fromJS(data)
+})
+
+export const getInitList = () => {
+  // thunk本身自带参数dispatch
+  return (dispatch) => {
+    axios.get('https://www.easy-mock.com/mock/5d004ef495de7c77f8700638/video/mock').then(res => {
+      dispatch(initList(res.data.array))
+    }).catch(() => {
+      alert('error')
+    })
+  }
+}

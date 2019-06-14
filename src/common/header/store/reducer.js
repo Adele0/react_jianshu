@@ -4,7 +4,8 @@ import { fromJS } from 'immutable'
 // state是绝对不能被改变的---借助immutable.js
 
 const initialState = fromJS({
-  focused: false
+  focused: false, 
+  list: []
 })
 
 export default (state = initialState, { type, payload }) => {
@@ -17,6 +18,9 @@ export default (state = initialState, { type, payload }) => {
 
   case constants.HEADER_FOCUS_TRUE:
     return state.set('focused', false)
+
+  case constants.HEADER_INIT_LIST:
+    return state.set('list', payload)
 
   default:
     return state

@@ -96,7 +96,37 @@ export const SearchKeywords = styled.div`
 	width: 240px;
 	padding: 0 20px;
 	box-shadow: 0 0 8px rgba(0, 0, 0, .2);
-	background: red;
+	background: #fff;
+	color: #969696;
+	font-size: 14px;
+`;
+
+export const SearchKeywordsTitle = styled.div`
+	margin-top: 20px;
+	margin-bottom: 15px;
+	line-height: 20px;
+`;
+
+export const SearchKeywordsChange = styled.span`
+	font-size: 13px;
+	cursor: pointer;
+`;
+
+export const KeywordsList = styled.div`
+	overflow: hidden;
+`;
+
+export const Keywords = styled.a`
+	display: block;
+	float: left;
+	line-height: 20px;
+	padding: 0 5px;
+	margin-right: 10px;
+	margin-bottom: 15px;
+	font-size: 12px;
+	border: 1px solid #ddd;
+	color: #787878;
+	border-radius: 3px;
 `;
 
 export const Addition = styled.div`
