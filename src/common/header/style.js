@@ -110,6 +110,11 @@ export const SearchKeywordsTitle = styled.div`
 export const SearchKeywordsChange = styled.span`
 	font-size: 13px;
 	cursor: pointer;
+	display: block;
+	&.spin {
+		transition: all .5s ease-in;
+		transform-origin: center center;
+	}
 `;
 
 export const KeywordsList = styled.div`

@@ -5,10 +5,13 @@ import { fromJS } from 'immutable'
 
 const initialState = fromJS({
   focused: false, 
-  list: []
+  mouseIn: false, 
+  list: [],
+  pages: 1,
+  currentPage: 1
 })
 
-export default (state = initialState, { type, payload }) => {
+export default (state = initialState, { type, payload, pages }) => {
   switch (type) {
 
   // 改变state数据时，需要使用immutable对象的set方法,配合get方法
@@ -20,7 +23,21 @@ export default (state = initialState, { type, payload }) => {
     return state.set('focused', false)
 
   case constants.HEADER_INIT_LIST:
-    return state.set('list', payload)
+    // 需要修改的值多的时候可以使用merge方法
+    // return state.set('list', payload).set('pages', pages)
+    return state.merge({
+      'list': payload,
+      'pages': pages,
+    })
+ 
+  case constants.HEADER_CHANGE_PAGE:
+    return state.set('currentPage', payload)
+
+  case constants.HEADER_MOUSE_TRUE:
+    return state.set('mouseIn', true)
+  
+  case constants.HEADER_MOUSE_FALSE:
+    return state.set('mouseIn', false)
 
   default:
     return state

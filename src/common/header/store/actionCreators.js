@@ -7,7 +7,8 @@ import * as constants from './constants'
 // state的数据是immutable对象，获得的数据也应该转为immutable对象
 const initList = (data) => ({
   type: constants.HEADER_INIT_LIST,
-  payload: fromJS(data)
+  payload: fromJS(data),
+  pages: Math.ceil(data.length / 10)  // 将获得的数据分为10条每页
 })
 
 // 暴露的都是方法
@@ -17,6 +18,19 @@ export const setFocusTrue = () => ({
 
 export const setFocusFalse = () => ({
   type: constants.HEADER_FOCUS_FALSE
+})
+
+export const setMouseTrue = () => ({
+  type: constants.HEADER_MOUSE_TRUE
+})
+
+export const setMouseFalse = () => ({
+  type: constants.HEADER_MOUSE_FALSE
+})
+
+export const changePage = (currentPage) => ({
+  type: constants.HEADER_CHANGE_PAGE,
+  payload: currentPage
 })
 
 // 使用thunk可以使actionCreator返回函数

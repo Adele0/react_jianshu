@@ -22,23 +22,41 @@ class Header extends Component {
  
   // 搜索关键字的显示/隐藏
   isKeywordsShow = () => {
-    const { focused, list } = this.props;
-    if (focused) {
+    const { focused, list, currentPage, pages, mouseIn, handleMouseEnter, handleMouseLeave, handlePageChange } = this.props;
+    // list现在是immutable对象，要取list中的每一项，需要把list转为普通的js对象
+    const jsList = list.toJS();
+    const pageList = []
+
+    // 将本来在KeywordsList中循环的keywords提取到外部
+    // 组件加载就会执行，JSList此时为空却先要执行10遍，所以加上条件
+    if (jsList.length>0) {
+      for (let i = (currentPage - 1) * 10; i < currentPage * 10; i++) {
+        // 最后一页不为10整数不在加入数组
+        if (jsList[i]) {
+          pageList.push(
+            <Keywords key={jsList[i]}>{jsList[i]}</Keywords>
+          )
+        }
+      }
+    }
+
+    // focused和mouse情景下都需要显示
+    if (focused || mouseIn) {
       return (
-        <SearchKeywords className='clearfix'>
+        <SearchKeywords
+          className='clearfix' 
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}>
           <SearchKeywordsTitle>
             热门搜索
-            <SearchKeywordsChange className='fr'>
-            <i className='iconfont'>&#59473; </i>
+            <SearchKeywordsChange className='fr' onClick={() => handlePageChange(currentPage, pages, this.spinIcon)}>
+              <i ref={(icon) => {this.spinIcon = icon}} className='iconfont spin'>&#59473; </i>
               换一批
             </SearchKeywordsChange>
           </SearchKeywordsTitle>
           <KeywordsList>
-            {
-              list.map(item => {
-                return <Keywords key={item}>{item}</Keywords>
-              })
-            }
+            {/* 循环的keywords被添加到pageList中，此处引用就行 */}
+            {pageList}
           </KeywordsList>
         </SearchKeywords>
       )
@@ -48,7 +66,7 @@ class Header extends Component {
   }
 
   render () {
-    const { focused, handleInputFocus, handleInputBlur } = this.props;
+    const { focused, list, handleInputFocus, handleInputBlur } = this.props;
     return (
       <HeaderWrapper className='clearfix'>
         <Logo href='/' className='fl' />
@@ -62,7 +80,7 @@ class Header extends Component {
               timeout={500}>
               <NavSearch
                 className={focused ? 'focused' : ''}
-                onFocus={handleInputFocus}
+                onFocus={() => {handleInputFocus(list)}}
                 onBlur={handleInputBlur}
               ></NavSearch>
             </CSSTransition>
@@ -84,7 +102,8 @@ class Header extends Component {
         </Addition>
       </HeaderWrapper> 
     )
-  } 
+  }
+
 }
 
 const mapStateToProps = (state) => {
@@ -92,7 +111,10 @@ const mapStateToProps = (state) => {
     // 当state的使用immutable的fromJs后，不能直接使用对象调用，需使用immutable对象的get方法
     // focused : state.get('header').get('focused') 两种写法等价
     focused : state.getIn(['header','focused']),
+    mouseIn : state.getIn(['header','mouseIn']),
     list : state.getIn(['header','list']),
+    pages : state.getIn(['header','pages']),
+    currentPage : state.getIn(['header','currentPage']),
   }
 }
 
@@ -101,9 +123,22 @@ const mapDispatchToProps = (dispatch) => {
     handleInputBlur () {
       dispatch(actionCreators.setFocusTrue())
     },
-    handleInputFocus () {
-      dispatch(actionCreators.getInitList())
+    handleInputFocus (list) {
+      list.size === 0 && dispatch(actionCreators.getInitList())
       dispatch(actionCreators.setFocusFalse())
+    },
+    handleMouseEnter () {
+      dispatch(actionCreators.setMouseTrue())
+    },
+    handleMouseLeave () {
+      dispatch(actionCreators.setMouseFalse())
+    },
+    handlePageChange (currentPage, pages, spin) {
+      let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+      originAngle ? originAngle = parseInt(originAngle) : originAngle = 0;
+      spin.style.transform = 'rotate('+ originAngle + 360 + 'deg)';
+      (currentPage < pages) ? dispatch(actionCreators.changePage(currentPage+1))
+                            : dispatch(actionCreators.changePage(1));
     },
   }
 }
