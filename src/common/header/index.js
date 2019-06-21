@@ -136,7 +136,7 @@ const mapDispatchToProps = (dispatch) => {
     handlePageChange (currentPage, pages, spin) {
       let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
       originAngle ? originAngle = parseInt(originAngle) : originAngle = 0;
-      spin.style.transform = 'rotate('+ originAngle + 360 + 'deg)';
+      spin.style.transform = 'rotate('+ (originAngle + 360) + 'deg)';
       (currentPage < pages) ? dispatch(actionCreators.changePage(currentPage+1))
                             : dispatch(actionCreators.changePage(1));
     },

@@ -107,12 +107,15 @@ export const SearchKeywordsTitle = styled.div`
 	line-height: 20px;
 `;
 
-export const SearchKeywordsChange = styled.span`
+export const SearchKeywordsChange = styled.p`
 	font-size: 13px;
 	cursor: pointer;
-	display: block;
-	&.spin {
-		transition: all .5s ease-in;
+	.spin {
+		display: block;
+		float: left;
+		margin-right: 2px;
+		font-size: 12px;
+		transition: all .4s ease-in;
 		transform-origin: center center;
 	}
 `;
