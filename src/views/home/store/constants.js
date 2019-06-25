@@ -1,1 +1,1 @@
-export const HOME_TOPIC_LIST = 'home/topic-list'
+export const HOME_DATA_LIST = 'home/data-list'

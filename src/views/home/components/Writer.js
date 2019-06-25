@@ -38,7 +38,7 @@ class Writer extends Component {
                         <span>{item.get('name')}</span>
                         <span className='fr'>+关注</span>
                       </p>
-                      <p className='follower'>写了{item.get('words')}字 · {item.get('followers')}喜欢</p>
+                      <p className='follower'>写了{item.get('words')}k字 · {item.get('followers')}k喜欢</p>
                     </div>
                   </div>
                 </WriterList>

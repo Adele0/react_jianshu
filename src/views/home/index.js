@@ -1,17 +1,14 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { actionCreators } from './store';
 
-import { 
-         HomeWrapper,
-         HomeLeft,
-         HomeRight,
-       } from './style';
+import { HomeWrapper, HomeLeft, HomeRight } from './style';
 import Recommend from './components/Recommend';
 import Topic from './components/Topic';
 import List from './components/List';
 import Writer from './components/Writer';
 
-export default class Home extends Component {
+class Home extends Component {
   render() {
     return (
       <div>
@@ -29,4 +26,17 @@ export default class Home extends Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    this.props.getHomeData()
+  }
+  
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  getHomeData() {
+    dispatch(actionCreators.getHomeData());
+  }
+})
+
+export default connect(null, mapDispatchToProps)(Home)

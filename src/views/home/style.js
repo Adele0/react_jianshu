@@ -71,6 +71,11 @@ export const ListInfo =	styled.div`
 		line-height: 24px;
 		font-size: 13px;
 		color: #999;
+    overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 	}
 `;
 
