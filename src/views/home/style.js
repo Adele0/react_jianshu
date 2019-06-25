@@ -101,9 +101,60 @@ export const RecommendItem = styled.div`
 
 export const WriterWrapper = styled.div`
 	width: 278px;
-	border: 1px solid #dcdcdc;
 	border-radius: 3px;
-	height: 300px;
-	line-height: 300px;
-	text-align: center;
+	font-size: 14px;
+	.clearfix {
+		color: #969696;
+		.iconfont {
+			font-size: 13px;
+		}
+	}
+	.download {
+    margin-bottom: 30px;
+    padding: 10px 22px;
+    border: 1px solid #f0f0f0;
+    border-radius: 6px;
+		background-color: #fff;
+		img {
+			width: 60px;
+			height: 60px;
+		}
+		div {
+			padding-top: 10px;
+			margin-left: 10px;
+			.app {
+				margin-bottom: 10px;
+				font-size: 15px;
+    		color: #333;
+			}
+		}
+	}
+`;
+
+export const WriterList = styled.div`
+	margin-top: 10px;
+	.avatar {
+		margin-right: 10px;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		border: 1px solid #dcdcdc;
+	}
+	.left {
+		width: calc(100% - 60px);
+		.info {
+			margin-top: 10px;
+			color: #333;
+			.fr {
+				margin-top: 5px;
+				font-size: 13px;
+				color: #42c02e;
+			}
+		}
+		.follower {
+			margin-top: 2px;
+			font-size: 12px;
+			color: #969696;
+		}
+	}
 `;

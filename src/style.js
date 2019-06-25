@@ -73,5 +73,11 @@ export const Globalstyle = createGlobalStyle `
     clear: both;
     height: 0;
   }
-
+  .ads {
+    width: 280px;
+    height: 160px;
+    border-radius: 4px;
+    margin: 20px 0;
+    background-image: url(https://upload-images.jianshu.io/upload_images/9741289-cf7f4aa6a55801ed?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240);
+  }
 `
