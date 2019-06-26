@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { actionCreators } from './store';
 
-import { HomeWrapper, HomeLeft, HomeRight } from './style';
+import { HomeWrapper, HomeLeft, HomeRight, BackToTop } from './style';
 import Recommend from './components/Recommend';
 import Topic from './components/Topic';
 import List from './components/List';
@@ -10,6 +10,7 @@ import Writer from './components/Writer';
 
 class Home extends Component {
   render() {
+    const { showBackIcon } = this.props;
     return (
       <div>
         <HomeWrapper className='clearfix'>
@@ -22,21 +23,48 @@ class Home extends Component {
             <Recommend></Recommend>
             <Writer></Writer>
           </HomeRight>
+          {
+            showBackIcon ? <BackToTop>^</BackToTop> : null
+          } 
         </HomeWrapper>
       </div>
     )
   }
 
   componentDidMount() {
-    this.props.getHomeData()
+    this.props.getHomeData();
+    this.bindScrollEvent();
+  }
+
+  componentWillUnmount() { 
+    window.removeEventListener('scroll', this.props.isShowBackIcon)
   }
   
+  handleBackToTop() {
+    window.scrollTo(0,0)
+  }
+
+  bindScrollEvent() {
+    window.addEventListener('scroll', this.props.isShowBackIcon)
+  }
 }
+
+const mapStateToProps = (state) => ({
+  showBackIcon: state.getIn(['home','showBackIcon'])
+})
 
 const mapDispatchToProps = (dispatch) => ({
   getHomeData() {
     dispatch(actionCreators.getHomeData());
+  },
+
+  isShowBackIcon() {
+    if ( document.documentElement.scrollTop > 100 ) {
+      dispatch(actionCreators.setBackShow(true))
+    } else {
+      dispatch(actionCreators.setBackShow(false))
+    }
   }
 })
 
-export default connect(null, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

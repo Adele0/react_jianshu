@@ -7,6 +7,7 @@ const initialState = fromJS({
   articleList: [],
   recommendList: [],
   writerList: [],
+  showBackIcon: false
 })
 
 export default (state = initialState, { type, payload }) => {
@@ -18,7 +19,10 @@ export default (state = initialState, { type, payload }) => {
         'recommendList': fromJS(payload.recommendList),
         'writerList': fromJS(payload.writerList),
       })
-  
+      
+    case constants.HOME_BACK_ISSHOW:
+      return state.set('showBackIcon', payload)
+
     default:
       return state
     }

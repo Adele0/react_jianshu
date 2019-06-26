@@ -1,11 +1,15 @@
 import axios from 'axios'
-// import { fromJS } from 'immutable';
 import * as constants from './constants';
 
 export const initiList = (data) =>({
   type: constants.HOME_DATA_LIST,
   // 传值的时候不用fromJS, 在reducer中赋值时再用fromJS
   payload: data
+})
+
+export const setBackShow= (isShow) => ({
+  type: constants.HOME_BACK_ISSHOW,
+  payload: isShow
 })
 
 export const getHomeData = () => {
