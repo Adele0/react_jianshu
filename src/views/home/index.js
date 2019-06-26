@@ -24,7 +24,7 @@ class Home extends Component {
             <Writer></Writer>
           </HomeRight>
           {
-            showBackIcon ? <BackToTop>^</BackToTop> : null
+            showBackIcon ? <BackToTop onClick={this.handleBackToTop}>^</BackToTop> : null
           } 
         </HomeWrapper>
       </div>
