@@ -1,0 +1,1 @@
+export const DETAILS_DATA_LIST = 'details/data-list'
