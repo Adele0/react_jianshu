@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+// import { Link } from 'react-router-dom';   会报错
+import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 // 样式组件
 import { HeaderWrapper, 
@@ -17,6 +18,7 @@ import { HeaderWrapper,
          Keywords,
        } from './style';
 import { actionCreators } from './store';
+import { actionCreators as LoginActionCreators } from '../../views/login/store';
 
 class Header extends Component {
  
@@ -66,7 +68,7 @@ class Header extends Component {
   }
 
   render () {
-    const { focused, list, handleInputFocus, handleInputBlur } = this.props;
+    const { focused, list, handleInputFocus, handleInputBlur, isLogin, logout } = this.props;
     return (
       <HeaderWrapper className='clearfix'>
         <Logo href='/' className='fl' />
@@ -88,7 +90,17 @@ class Header extends Component {
             {/* 关键字 调用方法需要使用插值表达式*/}
             {this.isKeywordsShow(focused)}
           </SearchWrapper>
-          <NavItem className='fr'>登录</NavItem>
+          {
+            isLogin ? 
+                      <NavItem className='fr' onClick={logout}>退出</NavItem>
+                    : 
+                      // 报错 
+                      // <Link to='/login'>
+                      <a style={{'display': 'block'}} href='/login'>
+                        <NavItem className='fr'>登录</NavItem>
+                      </a>
+                      // </Link>
+          }
           <NavItem className='fr'>
             <i className='iconfont'>&#58934;</i>
           </NavItem>
@@ -115,6 +127,7 @@ const mapStateToProps = (state) => {
     list : state.getIn(['header','list']),
     pages : state.getIn(['header','pages']),
     currentPage : state.getIn(['header','currentPage']),
+    isLogin : state.getIn(['login','isLogin']),
   }
 }
 
@@ -140,6 +153,9 @@ const mapDispatchToProps = (dispatch) => {
       (currentPage < pages) ? dispatch(actionCreators.changePage(currentPage+1))
                             : dispatch(actionCreators.changePage(1));
     },
+    logout() {
+      dispatch(LoginActionCreators.changeLogout())
+    }
   }
 }
 
