@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';   会报错
+import { Link } from 'react-router-dom';   // 会报错的原因是：home组件并没有被BrowserRouter包住
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 // 样式组件
@@ -94,12 +94,8 @@ class Header extends Component {
             isLogin ? 
                       <NavItem className='fr' onClick={logout}>退出</NavItem>
                     : 
-                      // 报错 
-                      // <Link to='/login'>
-                      <a style={{'display': 'block'}} href='/login'>
-                        <NavItem className='fr'>登录</NavItem>
-                      </a>
-                      // </Link>
+                      // 报错的原因是；home组件并没有被BrowserRouter包住
+                      <Link to='/login'><NavItem className='fr'>登录</NavItem></Link>
           }
           <NavItem className='fr'>
             <i className='iconfont'>&#58934;</i>
@@ -108,7 +104,7 @@ class Header extends Component {
         <Addition className='clearfix'>
           <Button className='fr writting'>
             <i className='iconfont'>&#58901;</i>
-            <a href='/articles'> 写文章</a>
+            <Link to='/articles'>写文章</Link>
           </Button>
           <Button className='fr reg'>注册</Button>
         </Addition>

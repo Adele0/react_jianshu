@@ -1,1 +1,1 @@
-export const LOGIN_IS_LOGIN = 'login/is-login'
+export const LOGIN_IS_LOGIN = 'login/is-login';
