@@ -108,7 +108,7 @@ class Header extends Component {
         <Addition className='clearfix'>
           <Button className='fr writting'>
             <i className='iconfont'>&#58901;</i>
-            <span> 写文章</span>
+            <a href='/articles'> 写文章</a>
           </Button>
           <Button className='fr reg'>注册</Button>
         </Addition>

@@ -59,6 +59,11 @@ export const Globalstyle = createGlobalStyle `
     border-collapse: collapse;
     border-spacing: 0;
   }
+  a {
+    text-decoration:none;
+    out-line: none;
+    color: inherit;
+  }
   .fl {
     float: left;
   }
